@@ -23,4 +23,12 @@ class AppTextStyles {
     fontSize: 24,
     fontWeight: FontWeight.bold,
   );
+  static const filterBy = TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.bold,
+  );
+  static const filterOption = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.bold,
+  );
 }

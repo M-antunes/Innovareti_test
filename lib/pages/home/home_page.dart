@@ -5,6 +5,10 @@ import 'package:innovareti_test/pages/home/widgets/room_card.dart';
 import 'package:innovareti_test/shared/theme/app_colors.dart';
 import 'package:innovareti_test/shared/theme/app_text_styles.dart';
 
+import 'widgets/capacity_filter.dart';
+import 'widgets/horizontal_divider.dart';
+import 'widgets/qualification_filter.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -62,124 +66,72 @@ class _HomePageState extends State<HomePage> {
               onTap: () => showModalBottomSheet(
                 context: context,
                 builder: (_) {
-                  return SizedBox(
-                    height: size.height * 0.5,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                            vertical: 8,
-                          ),
-                          child: Center(
-                            child: Container(
-                              width: size.width * 0.4,
-                              height: 5,
-                              decoration: BoxDecoration(
-                                color: Colors.grey[600],
-                                borderRadius: BorderRadius.circular(20),
+                  return StatefulBuilder(builder: (context, setState) {
+                    return SizedBox(
+                      height: size.height * 0.5,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 8,
+                            ),
+                            child: Center(
+                              child: Container(
+                                width: size.width * 0.4,
+                                height: 5,
+                                decoration: BoxDecoration(
+                                  color: Colors.grey[600],
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        Text('Filtrar por:'),
-                        Text('Qualificações'),
-
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 12),
-                          child: SizedBox(
-                            height: size.height * 0.4,
-                            width: double.infinity,
-                            child: GridView.builder(
-                              itemCount:
-                                  mockedRoomModel.listOfFeaturesToCheck.length,
-                              itemBuilder: (context, index) {
-                                var feature = mockedRoomModel
-                                    .listOfFeaturesToCheck[index];
-
-                                return Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(30),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(3),
-                                    child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        InkWell(
-                                          onTap: () {
-                                            setState(() {
-                                              mockedRoomModel
-                                                      .listOfBools[index] =
-                                                  !mockedRoomModel
-                                                      .listOfBools[index];
-                                            });
-                                          },
-                                          child: Icon(
-                                            mockedRoomModel.listOfBools[index]
-                                                ? Icons.check_box
-                                                : Icons.check_box_outline_blank,
-                                          ),
-                                        ),
-                                        Text(feature),
-                                      ],
-                                    ),
-                                  ),
-                                );
-                              },
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                childAspectRatio: 14 / 2,
-                                crossAxisSpacing: 0,
-                                mainAxisSpacing: 0,
+                          const Center(
+                            child: Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: const Text(
+                                'Filtrar',
+                                style: AppTextStyles.filterBy,
                               ),
                             ),
                           ),
-                        )
-                        // Row(
-                        //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        //   children: [
-                        //     Column(
-                        //       mainAxisSize: MainAxisSize.min,
-                        //       children: [
-                        //         Row(
-                        //           children: [
-                        //             Icon(Icons.check_box_outline_blank),
-                        //         Text('Wi-Fi'),
-                        //           ],
-                        //         ),
-                        //         Row(
-                        //           children: [
-                        //             Icon(Icons.check_box_outline_blank),
-                        //         Text('TV'),
-                        //           ],
-                        //         ),
-                        //       ],
-                        //     ),
-                        //     Column(
-                        //       mainAxisSize: MainAxisSize.min,
-                        //       children: [
-                        //         Icon(Icons.check_box_outline_blank),
-                        //         Text('Projetor'),
-                        //         Icon(Icons.check_box_outline_blank),
-                        //         Text('Quadro Interativo'),
-                        //       ],
-                        //     ),
-                        //     Column(
-                        //       children: [
-                        //         Icon(Icons.check_box_outline_blank),
-                        //         Text('Tablet'),
-                        //         Icon(Icons.check_box_outline_blank),
-                        //         Text('Computador'),
-                        //       ],
-                        //     ),
-                        //   ],
-                        // )
-                      ],
-                    ),
-                  );
+                          const HorizontalDivider(),
+                          const Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 12,
+                            ),
+                            child: const Text(
+                              'Qualificações',
+                              style: AppTextStyles.filterOption,
+                            ),
+                          ),
+                          const HorizontalDivider(),
+                          SizedBox(
+                            height: size.height * 0.01,
+                          ),
+                          QualificationFilter(
+                              size: size, mockedRoomModel: mockedRoomModel),
+                          const HorizontalDivider(),
+                          const Padding(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 12,
+                            ),
+                            child: Text(
+                              'Capacidade da Sala',
+                              style: AppTextStyles.filterOption,
+                            ),
+                          ),
+                          const HorizontalDivider(),
+                          SizedBox(
+                            height: size.height * 0.01,
+                          ),
+                          CapacityFilter(
+                              size: size, mockedRoomModel: mockedRoomModel)
+                        ],
+                      ),
+                    );
+                  });
                 },
               ),
             ),

@@ -19,6 +19,22 @@ class MockedRoomModel {
     false,
   ];
 
+  List<Map<String, dynamic>> featureFilters = [
+    {'name': 'Wi-Fi', 'isChecked': false},
+    {'name': 'TV', 'isChecked': false},
+    {'name': 'Quadro Interativo', 'isChecked': false},
+    {'name': 'Tablet', 'isChecked': false},
+    {'name': 'Projetor', 'isChecked': false},
+    {'name': 'Computador', 'isChecked': false},
+  ];
+
+  List<Map<String, dynamic>> capacityFilters = [
+    {'name': '0 - 5', 'isChecked': false},
+    {'name': '5 - 10', 'isChecked': false},
+    {'name': '10 - 15', 'isChecked': false},
+    {'name': '15 - 20', 'isChecked': false},
+  ];
+
   final listOfModels = [
     RoomModel(
       name: 'Sala Um',
