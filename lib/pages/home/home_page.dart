@@ -6,7 +6,7 @@ import 'package:innovareti_test/shared/theme/app_colors.dart';
 import 'package:innovareti_test/shared/theme/app_text_styles.dart';
 
 import 'widgets/capacity_filter.dart';
-import 'widgets/horizontal_divider.dart';
+import '../../shared/widgets/horizontal_divider.dart';
 import 'widgets/qualification_filter.dart';
 
 class HomePage extends StatefulWidget {
@@ -25,16 +25,9 @@ class _HomePageState extends State<HomePage> {
     final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.grey[300],
-      drawer: const SizedBox(),
       appBar: AppBar(
         backgroundColor: AppColors.primary,
         elevation: 12,
-        actions: const [
-          Padding(
-            padding: EdgeInsets.only(right: 10),
-            child: Icon(Icons.notifications_none),
-          ),
-        ],
         title: const Text("Conference Room"),
         centerTitle: true,
       ),
@@ -143,7 +136,8 @@ class _HomePageState extends State<HomePage> {
                   var room = mockedRoomModel.listOfModels[index];
                   return InkWell(
                     onTap: () {
-                      Navigator.pushNamed(context, '/reservation');
+                      Navigator.pushNamed(context, '/reservation',
+                          arguments: room);
                     },
                     child: RoomCard(
                       size: size,

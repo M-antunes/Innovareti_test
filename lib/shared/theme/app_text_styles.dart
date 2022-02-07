@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:innovareti_test/shared/theme/app_colors.dart';
 
 class AppTextStyles {
   static const roomName = TextStyle(
@@ -30,5 +31,20 @@ class AppTextStyles {
   static const filterOption = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.bold,
+  );
+  static final roomReserveBoxText = TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.bold,
+    color: AppColors.primary,
+  );
+  static final roomReserveBoxDetails = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w400,
+    color: AppColors.primary,
+  );
+  static final roomReserveButton = TextStyle(
+    fontSize: 18,
+    fontWeight: FontWeight.w700,
+    color: AppColors.primary,
   );
 }
