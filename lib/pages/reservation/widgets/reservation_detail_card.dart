@@ -36,7 +36,7 @@ class ReservationDetailCard extends StatelessWidget {
               ),
               SizedBox(
                 width: size.width * 0.25,
-                height: size.height * 0.13,
+                height: size.height * 0.1,
                 child: FittedBox(
                   fit: BoxFit.fitWidth,
                   child: Image.asset(imageString),

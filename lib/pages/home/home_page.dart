@@ -4,8 +4,8 @@ import 'package:innovareti_test/controller/reservation_controller.dart';
 import 'package:innovareti_test/models/mocked_room_model.dart';
 import 'package:innovareti_test/pages/home/widgets/room_card.dart';
 import 'package:innovareti_test/shared/theme/app_colors.dart';
+import 'package:innovareti_test/shared/theme/app_text_styles.dart';
 import 'package:provider/provider.dart';
-import 'package:provider/src/provider.dart';
 
 import 'widgets/filter_bottom_sheet.dart';
 import 'widgets/filter_button.dart';
@@ -63,6 +63,21 @@ class _HomePageState extends State<HomePage> {
             child: SizedBox(
               child: Consumer<ReservationController>(
                   builder: (context, state, child) {
+                if (_reservationController.filteredRooms.isEmpty) {
+                  return Center(
+                    child: SizedBox(
+                      width: size.width * 0.8,
+                      child: const FittedBox(
+                        fit: BoxFit.fill,
+                        child: Text(
+                          'Nenhuma sala se enquadra nos\nparâmetros estabelecidos',
+                          textAlign: TextAlign.center,
+                          style: AppTextStyles.noRoomText,
+                        ),
+                      ),
+                    ),
+                  );
+                }
                 return ListView.builder(
                   itemCount: _reservationController.filteredRooms.length,
                   itemBuilder: (context, index) {

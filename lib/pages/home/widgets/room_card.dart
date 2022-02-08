@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:innovareti_test/models/room_model.dart';
 import 'package:innovareti_test/shared/theme/app_text_styles.dart';
 
-import 'room_feature.dart';
 import 'room_feature_set.dart';
 
 class RoomCard extends StatelessWidget {
@@ -61,6 +60,7 @@ class RoomCard extends StatelessWidget {
                     padding:
                         const EdgeInsets.symmetric(horizontal: 20, vertical: 6),
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         const Text('Capacidade:  ',
                             style: AppTextStyles.roomFeatures),
@@ -89,14 +89,20 @@ class RoomCard extends StatelessWidget {
                 horizontal: 12,
                 vertical: 5,
               ),
-              child: Row(
-                children: [
-                  Icon(
-                    Icons.place,
-                    color: Colors.purple[900],
+              child: SizedBox(
+                width: size.width * 0.85,
+                child: FittedBox(
+                  fit: BoxFit.fill,
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.place,
+                        color: Colors.purple[900],
+                      ),
+                      Text(room.address),
+                    ],
                   ),
-                  Text(room.address),
-                ],
+                ),
               ),
             ),
             Padding(

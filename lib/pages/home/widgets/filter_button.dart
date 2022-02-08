@@ -20,12 +20,18 @@ class FilterButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(6),
           color: Colors.white,
         ),
-        child: const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
           child: Center(
-            child: Text(
-              'Encontre aqui sua sala de reunião',
-              style: AppTextStyles.roomFeatures,
+            child: SizedBox(
+              width: size.width * 0.8,
+              child: const FittedBox(
+                fit: BoxFit.fill,
+                child: Text(
+                  'Encontre aqui a sala de reuniões perfeita para você',
+                  style: AppTextStyles.roomFeatures,
+                ),
+              ),
             ),
           ),
         ),

@@ -33,7 +33,7 @@ class ReservationController extends ChangeNotifier {
 
   void filter() {
     List<RoomModel> temporaryFiltered = List.from(rooms);
-    featureFilters.forEach((feature) {
+    for (var feature in featureFilters) {
       if (feature['isChecked'] && feature['name'] == 'Wi-Fi') {
         temporaryFiltered =
             temporaryFiltered.where((element) => element.hasWifi).toList();
@@ -58,7 +58,7 @@ class ReservationController extends ChangeNotifier {
             .where((element) => element.hasPersonalComputer)
             .toList();
       }
-    });
+    }
     if (capacitySelected > -1) {
       var capacity = capacityFilters.elementAt(capacitySelected);
       if (capacity['name'] == '0 - 5') {

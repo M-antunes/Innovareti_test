@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:innovareti_test/controller/reservation_controller.dart';
 import 'package:innovareti_test/shared/theme/app_text_styles.dart';
 import 'package:innovareti_test/shared/widgets/horizontal_divider.dart';
-import 'package:provider/src/provider.dart';
+import 'package:provider/provider.dart';
 
 class QualificationFilter extends StatefulWidget {
   final Size size;
@@ -64,8 +64,12 @@ class _QualificationFilterState extends State<QualificationFilter> {
                                 feature['isChecked'] = newValue!;
                               });
                             }),
-                        Text(
-                          feature['name'],
+                        SizedBox(
+                          width: widget.size.width * 0.28,
+                          child: Text(
+                            feature['name'],
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ),
                       ],
                     ),

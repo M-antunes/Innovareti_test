@@ -5,7 +5,7 @@ import 'package:innovareti_test/models/room_model.dart';
 import 'package:innovareti_test/shared/theme/app_colors.dart';
 import 'package:innovareti_test/shared/theme/app_text_styles.dart';
 import 'package:innovareti_test/shared/widgets/app_button.dart';
-import 'package:provider/src/provider.dart';
+import 'package:provider/provider.dart';
 
 import 'widgets/reservation_detail_card.dart';
 
@@ -41,13 +41,13 @@ class _ReservationPageState extends State<ReservationPage> {
 
   reserveRoom(RoomModel room, Size size, String type) {
     if (_reservationController.chekIfRoomIsAlreadyReserved(room)) {
-      ConfirmReservationMessage(context, size, Icons.cancel_outlined,
+      confirmReservationMessage(context, size, Icons.cancel_outlined,
           'Você já Reservou a\n${room.name}');
       return;
     }
     _reservationController.fillReservedRooms(room);
     // _reservationController.chooseReservationType(type);
-    ConfirmReservationMessage(context, size, Icons.check, 'Reservada!');
+    confirmReservationMessage(context, size, Icons.check, 'Reservada!');
   }
 
   @override
@@ -74,7 +74,7 @@ class _ReservationPageState extends State<ReservationPage> {
           ),
           SizedBox(height: size.height * 0.01),
           SizedBox(
-            width: size.width * 0.45,
+            height: size.height * 0.15,
             child: Image.asset(room.imageUrl),
           ),
           SizedBox(height: size.height * 0.03),
@@ -133,7 +133,7 @@ class _ReservationPageState extends State<ReservationPage> {
     );
   }
 
-  Future<dynamic> ConfirmReservationMessage(
+  Future<dynamic> confirmReservationMessage(
       BuildContext context, Size size, IconData icon, String text) {
     return showDialog(
       context: context,
