@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:innovareti_test/controller/reservation_controller.dart';
+import 'package:innovareti_test/shared/theme/app_colors.dart';
 import 'package:innovareti_test/shared/theme/app_text_styles.dart';
 import 'package:innovareti_test/shared/widgets/horizontal_divider.dart';
 import 'package:provider/provider.dart';
@@ -58,6 +59,7 @@ class _QualificationFilterState extends State<QualificationFilter> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Checkbox(
+                            activeColor: AppColors.primary,
                             value: feature['isChecked'],
                             onChanged: (newValue) {
                               setState(() {
