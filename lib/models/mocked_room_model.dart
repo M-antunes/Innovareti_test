@@ -42,7 +42,7 @@ class MockedRoomModel {
       name: 'Sala 3',
       imageUrl: 'assets/images/room_three.jpg',
       capacity: 7,
-      address: 'Av. Todos so Santos, 4333 - São Paulo.',
+      address: 'Av. Todos os Santos, 4333 - São Paulo.',
       hasBigScreenTv: true,
       hasInteractiveBoard: false,
       hasPersonalComputer: false,
