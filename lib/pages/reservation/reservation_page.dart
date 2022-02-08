@@ -121,6 +121,9 @@ class _ReservationPageState extends State<ReservationPage> {
             height: size.height * 0.05,
           ),
           InkWell(
+            splashColor: isMettingSelected || isStationSelected
+                ? Colors.purple
+                : Colors.transparent,
             onTap: () => selectTypeOfReservation(room, size),
             child: AppButton(
                 text: 'Reservar',
