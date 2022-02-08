@@ -1,15 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:innovareti_test/controller/reservation_controller.dart';
 import 'package:innovareti_test/shared/theme/app_colors.dart';
 import 'package:innovareti_test/shared/theme/app_text_styles.dart';
 import 'package:innovareti_test/shared/widgets/horizontal_divider.dart';
+import 'package:provider/provider.dart';
 
-class MyReservations extends StatelessWidget {
+import 'widgets/check_in_button.dart';
+
+class MyReservations extends StatefulWidget {
   const MyReservations({Key? key}) : super(key: key);
 
   @override
+  State<MyReservations> createState() => _MyReservationsState();
+}
+
+class _MyReservationsState extends State<MyReservations> {
+  @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-
     return Scaffold(
       backgroundColor: Colors.grey[300],
       appBar: AppBar(
@@ -40,7 +48,7 @@ class MyReservations extends StatelessWidget {
               ],
             ),
           ),
-          HorizontalDivider(),
+          const HorizontalDivider(),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12),
             child: Text(
@@ -48,56 +56,99 @@ class MyReservations extends StatelessWidget {
               style: AppTextStyles.roomReserveButton,
             ),
           ),
-          HorizontalDivider(),
+          const HorizontalDivider(),
           Expanded(
-            child: ListView.builder(
-                itemCount: 2,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 12,
-                    ),
-                    child: ListTile(
-                      leading: SizedBox(
-                          width: size.width * 0.25,
-                          child: FittedBox(
-                              fit: BoxFit.fill,
-                              child:
-                                  Image.asset('assets/images/room_one.jpg'))),
-                      title: Text('Nome da Sala'),
-                      subtitle: Text('Você reservou esta sala.'),
-                      trailing: SizedBox(
-                        width: size.width * 0.2,
-                        child: Row(
-                          children: [
-                            Text(
-                              'CheckIn\nAqui',
-                              textAlign: TextAlign.center,
-                            ),
-                            Icon(Icons.check),
-                          ],
-                        ),
-                      ),
+            child: Consumer<ReservationController>(
+              builder: (context, controller, child) {
+                if (controller.roomsReserved.isEmpty) {
+                  return const Center(
+                    child: Text(
+                      'Você ainda não tem\nsalas reservadas.',
+                      textAlign: TextAlign.center,
+                      style: AppTextStyles.noRoomText,
                     ),
                   );
-                  // ListTile(
-                  //   leading: ClipRRect(
-                  //     borderRadius: BorderRadius.circular(50),
-                  //     child: Image.asset('assets/images/room_one.jpg'),
-                  //   ),
-                  //   title: Text('Nome da Sala'),
-                  //   subtitle: Text('Você reservou esta página.'),
-                  //   trailing: Row(
-                  //     children: [
-                  //       Icon(Icons.check),
-                  //       Text('CheckIn'),
-                  //     ],
-                  //   ),
-                  // ),
-                }),
+                }
+                return ListView.builder(
+                  itemCount: controller.roomsReserved.length,
+                  itemBuilder: (context, index) {
+                    var room = controller.roomsReserved[index];
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 12,
+                      ),
+                      child: ListTile(
+                        leading: SizedBox(
+                          width: size.width * 0.25,
+                          child: FittedBox(
+                            fit: BoxFit.fill,
+                            child: Image.asset(room.imageUrl),
+                          ),
+                        ),
+                        title: Text(room.name),
+                        subtitle: Text('Reserva para\n${room.type}'),
+                        trailing: SizedBox(
+                          width: size.width * 0.2,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: room.hasCheckedIn
+                                  ? AppColors.primary
+                                  : Colors.transparent,
+                              border: Border.all(
+                                color: AppColors.primary!,
+                                width: 2,
+                              ),
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: InkWell(
+                              onTap: () {
+                                setState(() {
+                                  room.hasCheckedIn = !room.hasCheckedIn;
+                                  showScaffoldMessage(room.hasCheckedIn);
+                                });
+                              },
+                              child: CheckInButon(room: room),
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                );
+              },
+            ),
           ),
         ],
       ),
     );
+  }
+
+  showScaffoldMessage(bool checkIn) {
+    if (checkIn) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        duration: const Duration(
+          seconds: 1,
+        ),
+        backgroundColor: AppColors.primary,
+        content: const Text(
+          'Check-in realizado.',
+          style: AppTextStyles.roomCapacity,
+        ),
+      ));
+      return;
+    }
+    if (!checkIn) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        duration: const Duration(
+          seconds: 1,
+        ),
+        backgroundColor: Colors.grey[500],
+        content: Text(
+          'Check-in Cancelado.',
+          style: AppTextStyles.roomReserveButton,
+        ),
+      ));
+      return;
+    }
   }
 }

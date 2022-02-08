@@ -10,33 +10,9 @@ class MockedRoomModel {
     'Computador',
   ];
 
-  List<bool> listOfBools = [
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-  ];
-
-  List<Map<String, dynamic>> featureFilters = [
-    {'name': 'Wi-Fi', 'isChecked': false},
-    {'name': 'TV', 'isChecked': false},
-    {'name': 'Quadro Interativo', 'isChecked': false},
-    {'name': 'Tablet', 'isChecked': false},
-    {'name': 'Projetor', 'isChecked': false},
-    {'name': 'Computador', 'isChecked': false},
-  ];
-
-  List<Map<String, dynamic>> capacityFilters = [
-    {'name': '0 - 5', 'isChecked': false},
-    {'name': '5 - 10', 'isChecked': false},
-    {'name': '10 - 15', 'isChecked': false},
-    {'name': '15 - 20', 'isChecked': false},
-  ];
-
   final listOfModels = [
     RoomModel(
+      id: 1,
       name: 'Sala Um',
       imageUrl: 'assets/images/room_one.jpg',
       capacity: 8,
@@ -49,6 +25,7 @@ class MockedRoomModel {
       hasWifi: true,
     ),
     RoomModel(
+      id: 2,
       name: 'Sala Dois',
       imageUrl: 'assets/images/room_two.jpg',
       capacity: 5,
@@ -61,6 +38,7 @@ class MockedRoomModel {
       hasWifi: true,
     ),
     RoomModel(
+      id: 3,
       name: 'Sala Três',
       imageUrl: 'assets/images/room_three.jpg',
       capacity: 7,
@@ -73,6 +51,7 @@ class MockedRoomModel {
       hasWifi: true,
     ),
     RoomModel(
+      id: 4,
       name: 'Sala Quatro',
       imageUrl: 'assets/images/room_four.jpg',
       capacity: 12,
@@ -85,6 +64,7 @@ class MockedRoomModel {
       hasWifi: true,
     ),
     RoomModel(
+      id: 5,
       name: 'Sala Cinco',
       imageUrl: 'assets/images/room_five.jpg',
       capacity: 16,
@@ -97,6 +77,7 @@ class MockedRoomModel {
       hasWifi: true,
     ),
     RoomModel(
+      id: 6,
       name: 'Sala Seis',
       imageUrl: 'assets/images/room_six.jpg',
       capacity: 6,
@@ -109,6 +90,7 @@ class MockedRoomModel {
       hasWifi: true,
     ),
     RoomModel(
+      id: 7,
       name: 'Sala Sete',
       imageUrl: 'assets/images/room_seven.jpg',
       capacity: 10,
@@ -121,6 +103,7 @@ class MockedRoomModel {
       hasWifi: true,
     ),
     RoomModel(
+      id: 8,
       name: 'Sala Oito',
       imageUrl: 'assets/images/room_eight.jpg',
       capacity: 12,
@@ -133,6 +116,7 @@ class MockedRoomModel {
       hasWifi: true,
     ),
     RoomModel(
+      id: 9,
       name: 'Sala Nove',
       imageUrl: 'assets/images/room_nine.jpg',
       capacity: 14,
@@ -145,6 +129,7 @@ class MockedRoomModel {
       hasWifi: true,
     ),
     RoomModel(
+      id: 10,
       name: 'Sala Dez',
       imageUrl: 'assets/images/room_ten.jpg',
       capacity: 8,
@@ -155,6 +140,19 @@ class MockedRoomModel {
       hasPersonalTablet: true,
       hasProjector: false,
       hasWifi: true,
+    ),
+    RoomModel(
+      id: 11,
+      name: 'Sala Onze',
+      imageUrl: 'assets/images/room_eleven.jpg',
+      capacity: 3,
+      address: 'Av. Bom Senhor, 3454 - São Paulo.',
+      hasBigScreenTv: false,
+      hasInteractiveBoard: false,
+      hasPersonalComputer: false,
+      hasPersonalTablet: false,
+      hasProjector: false,
+      hasWifi: false,
     ),
   ];
 }

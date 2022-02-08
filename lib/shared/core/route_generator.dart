@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:innovareti_test/pages/home/home_page.dart';
+import 'package:innovareti_test/pages/my_reservation/my_reservation.dart';
 import 'package:innovareti_test/pages/reservation/reservation_page.dart';
 
 import '../route/app_routes.dart';
@@ -15,6 +16,11 @@ abstract class RouteGenerator {
       case AppRoutes.reservationPage:
         return MaterialPageRoute(
           builder: (_) => const ReservationPage(),
+          settings: routeSettings,
+        );
+      case AppRoutes.myRservations:
+        return MaterialPageRoute(
+          builder: (_) => const MyReservations(),
           settings: routeSettings,
         );
       default:

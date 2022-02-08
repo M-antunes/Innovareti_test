@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:innovareti_test/models/room_model.dart';
+import 'package:innovareti_test/controller/reservation_controller.dart';
 
+import 'package:innovareti_test/models/room_model.dart';
 import 'package:innovareti_test/shared/theme/app_colors.dart';
 import 'package:innovareti_test/shared/theme/app_text_styles.dart';
+import 'package:innovareti_test/shared/widgets/app_button.dart';
+import 'package:provider/src/provider.dart';
 
 import 'widgets/reservation_detail_card.dart';
 
@@ -16,6 +19,36 @@ class ReservationPage extends StatefulWidget {
 class _ReservationPageState extends State<ReservationPage> {
   bool isMettingSelected = false;
   bool isStationSelected = false;
+  late final ReservationController _reservationController;
+
+  @override
+  void initState() {
+    _reservationController = context.read<ReservationController>();
+    super.initState();
+  }
+
+  selectTypeOfReservation(RoomModel room, Size size) {
+    if (isMettingSelected) {
+      room.type = "Reunião";
+      reserveRoom(room, size, room.type!);
+    } else if (isStationSelected) {
+      room.type = "Estação de Trabalho";
+      reserveRoom(room, size, room.type!);
+    } else {
+      return null;
+    }
+  }
+
+  reserveRoom(RoomModel room, Size size, String type) {
+    if (_reservationController.chekIfRoomIsAlreadyReserved(room)) {
+      ConfirmReservationMessage(context, size, Icons.cancel_outlined,
+          'Você já Reservou a\n${room.name}');
+      return;
+    }
+    _reservationController.fillReservedRooms(room);
+    // _reservationController.chooseReservationType(type);
+    ConfirmReservationMessage(context, size, Icons.check, 'Reservada!');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +72,12 @@ class _ReservationPageState extends State<ReservationPage> {
             textAlign: TextAlign.center,
             style: AppTextStyles.reservationTitle,
           ),
-          SizedBox(height: size.height * 0.07),
+          SizedBox(height: size.height * 0.01),
+          SizedBox(
+            width: size.width * 0.45,
+            child: Image.asset(room.imageUrl),
+          ),
+          SizedBox(height: size.height * 0.03),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -52,7 +90,7 @@ class _ReservationPageState extends State<ReservationPage> {
                 },
                 child: ReservationDetailCard(
                   size: size,
-                  isStationSelected: isStationSelected,
+                  isSelected: isStationSelected,
                   text: 'Estação\nde Trabalho',
                   imageString: 'assets/images/work_station.jpg',
                   textDetail:
@@ -71,7 +109,7 @@ class _ReservationPageState extends State<ReservationPage> {
                 },
                 child: ReservationDetailCard(
                   size: size,
-                  isStationSelected: isMettingSelected,
+                  isSelected: isMettingSelected,
                   text: 'Reunião',
                   imageString: 'assets/images/meeting.jpg',
                   textDetail: 'Reserve a ${room.name} para\nsuas reuniões',
@@ -80,45 +118,23 @@ class _ReservationPageState extends State<ReservationPage> {
             ],
           ),
           SizedBox(
-            height: size.height * 0.15,
+            height: size.height * 0.05,
           ),
           InkWell(
-            onTap: isMettingSelected || isStationSelected
-                ? () {
-                    ConfirmReservationMessage(context, size);
-                  }
-                : null,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Container(
-                width: double.infinity,
-                height: size.height * 0.06,
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: isMettingSelected || isStationSelected
-                        ? AppColors.primary!
-                        : Colors.grey[600]!,
-                    width: 2,
-                  ),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Center(
-                  child: Text(
-                    'Reservar',
-                    style: isMettingSelected || isStationSelected
-                        ? AppTextStyles.roomReserveButton
-                        : TextStyle(color: Colors.grey[600]),
-                  ),
-                ),
-              ),
-            ),
+            onTap: () => selectTypeOfReservation(room, size),
+            child: AppButton(
+                text: 'Reservar',
+                size: size,
+                boolean1: isMettingSelected,
+                boolean2: isStationSelected),
           ),
         ],
       ),
     );
   }
 
-  Future<dynamic> ConfirmReservationMessage(BuildContext context, Size size) {
+  Future<dynamic> ConfirmReservationMessage(
+      BuildContext context, Size size, IconData icon, String text) {
     return showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -129,12 +145,12 @@ class _ReservationPageState extends State<ReservationPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(
-                Icons.check,
+                (icon),
                 size: 60,
                 color: AppColors.primary,
               ),
               Text(
-                'Reservado!',
+                text,
                 style: AppTextStyles.roomReserveButton,
               ),
             ],

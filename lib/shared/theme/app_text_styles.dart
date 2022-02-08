@@ -14,7 +14,7 @@ class AppTextStyles {
   static const roomCapacity = TextStyle(
     fontSize: 20,
     fontWeight: FontWeight.bold,
-    color: Color.fromRGBO(0, 0, 0, 0),
+    color: AppColors.white,
   );
   static const roomFeatures = TextStyle(
     fontSize: 14,
@@ -46,5 +46,9 @@ class AppTextStyles {
     fontSize: 18,
     fontWeight: FontWeight.w700,
     color: AppColors.primary,
+  );
+  static const noRoomText = TextStyle(
+    fontSize: 24,
+    fontWeight: FontWeight.w400,
   );
 }
